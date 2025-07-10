@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowRight, Scale, Sparkles, Ruler } from "lucide-react"
 import { useAudioFeedback } from "@/hooks/useAudioFeedback"
 import { AudioControls } from "@/components/AudioControls"
+import { AudioSettingsButton } from "@/components/AudioSettingsButton"
 import { CollisionButton } from "@/components/CollisionButton"
 import { AdvancedWebGLParticleSystem } from "@/components/AdvancedWebGLParticleSystem"
 import { useBMIMonitor } from "@/hooks/useBMIMonitor"
@@ -108,7 +109,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white flex items-center justify-center p-4 relative overflow-hidden">
-      <AudioControls />
+      
 
       {/* Background Collision Particles */}
       <div className="absolute inset-0 opacity-15 pointer-events-none">
@@ -413,6 +414,9 @@ export default function HomePage() {
           }}
         />
       )}
+
+      {/* Botón de configuración de audio global */}
+      <AudioSettingsButton />
     </div>
   )
 }

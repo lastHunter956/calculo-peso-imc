@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { AlertTriangle, X, Play, ExternalLink, Heart } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { YouTubePlayer } from "./YouTubePlayer"
-import { CollisionButton } from "./CollisionButton"
-import { AdvancedWebGLParticleSystem } from "./AdvancedWebGLParticleSystem"
-import { useAudioFeedback } from "@/hooks/useAudioFeedback"
-import type { WeightThreshold } from "@/hooks/useWeightMonitor"
+import { useState, useEffect } from "react";
+import { AlertTriangle, X, Play, ExternalLink, Heart } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { YouTubePlayer } from "./YouTubePlayer";
+import { CollisionButton } from "./CollisionButton";
+import { AdvancedWebGLParticleSystem } from "./AdvancedWebGLParticleSystem";
+import { useAudioFeedback } from "@/hooks/useAudioFeedback";
+import type { WeightThreshold } from "@/hooks/useWeightMonitor";
 
 interface WeightAlertProps {
-  threshold: WeightThreshold
-  weight: number
-  gender: string
-  unit: string
-  isVisible: boolean
-  autoPlayVideo?: boolean
-  onDismiss: () => void
-  onVideoPlay?: () => void
-  onVideoEnd?: () => void
-  className?: string
+  threshold: WeightThreshold;
+  weight: number;
+  gender: string;
+  unit: string;
+  isVisible: boolean;
+  autoPlayVideo?: boolean;
+  onDismiss: () => void;
+  onVideoPlay?: () => void;
+  onVideoEnd?: () => void;
+  className?: string;
 }
 
 export function WeightAlert({
@@ -35,17 +35,17 @@ export function WeightAlert({
   onVideoEnd,
   className = "",
 }: WeightAlertProps) {
-  const [showVideo, setShowVideo] = useState(autoPlayVideo)
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
-  const [showParticles, setShowParticles] = useState(false)
-  const { playSound } = useAudioFeedback()
+  const [showVideo, setShowVideo] = useState(autoPlayVideo);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [showParticles, setShowParticles] = useState(false);
+  const { playSound } = useAudioFeedback();
 
   useEffect(() => {
     if (isVisible) {
-      setShowParticles(true)
-      playSound("error")
+      setShowParticles(true);
+      playSound("error");
     }
-  }, [isVisible, playSound])
+  }, [isVisible, playSound]);
 
   const getSeverityConfig = (severity: string) => {
     switch (severity) {
@@ -57,7 +57,7 @@ export function WeightAlert({
           badgeColor: "bg-amber-100 text-amber-800",
           iconColor: "text-amber-600",
           particleType: "error" as const,
-        }
+        };
       case "alert":
         return {
           bgColor: "bg-orange-50",
@@ -66,7 +66,7 @@ export function WeightAlert({
           badgeColor: "bg-orange-100 text-orange-800",
           iconColor: "text-orange-600",
           particleType: "error" as const,
-        }
+        };
       case "critical":
         return {
           bgColor: "bg-red-50",
@@ -75,7 +75,7 @@ export function WeightAlert({
           badgeColor: "bg-red-100 text-red-800",
           iconColor: "text-red-600",
           particleType: "error" as const,
-        }
+        };
       default:
         return {
           bgColor: "bg-slate-50",
@@ -84,13 +84,13 @@ export function WeightAlert({
           badgeColor: "bg-slate-100 text-slate-800",
           iconColor: "text-slate-600",
           particleType: "hover" as const,
-        }
+        };
     }
-  }
+  };
 
-  const config = getSeverityConfig(threshold.severity)
+  const config = getSeverityConfig(threshold.severity);
 
-  if (!isVisible) return null
+  if (!isVisible) return null;
 
   return (
     <div
@@ -114,8 +114,8 @@ export function WeightAlert({
         {/* Close Button */}
         <CollisionButton
           onClick={() => {
-            onDismiss()
-            playSound("navigation")
+            onDismiss();
+            playSound("navigation");
           }}
           variant="ghost"
           size="sm"
@@ -128,17 +128,25 @@ export function WeightAlert({
 
         <CardHeader className="pb-4">
           <div className="flex items-start gap-4">
-            <div className={`p-3 rounded-full ${config.bgColor} border ${config.borderColor}`}>
+            <div
+              className={`p-3 rounded-full ${config.bgColor} border ${config.borderColor}`}
+            >
               <AlertTriangle className={`w-6 h-6 ${config.iconColor}`} />
             </div>
 
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <CardTitle className={`text-xl font-bold ${config.textColor}`}>Alerta de Peso</CardTitle>
-                <Badge className={`${config.badgeColor} text-xs font-medium`}>{threshold.severity.toUpperCase()}</Badge>
+                <CardTitle className={`text-xl font-bold ${config.textColor}`}>
+                  Alerta de Peso
+                </CardTitle>
+                <Badge className={`${config.badgeColor} text-xs font-medium`}>
+                  {threshold.severity.toUpperCase()}
+                </Badge>
               </div>
 
-              <p className={`text-sm ${config.textColor} opacity-90`}>{threshold.message}</p>
+              <p className={`text-sm ${config.textColor} opacity-90`}>
+                {threshold.message}
+              </p>
             </div>
           </div>
         </CardHeader>
@@ -150,26 +158,38 @@ export function WeightAlert({
               <div className={`text-2xl font-bold ${config.textColor}`}>
                 {weight} {unit}
               </div>
-              <div className="text-xs text-slate-600 uppercase tracking-wide">Peso Actual</div>
+              <div className="text-xs text-slate-600 uppercase tracking-wide">
+                Peso Actual
+              </div>
             </div>
 
             <div className="text-center p-3 bg-white/70 rounded-lg">
-              <div className={`text-lg font-semibold ${config.textColor} capitalize`}>
+              <div
+                className={`text-lg font-semibold ${config.textColor} capitalize`}
+              >
                 {gender === "female" ? "Femenino" : "Masculino"}
               </div>
-              <div className="text-xs text-slate-600 uppercase tracking-wide">Género</div>
+              <div className="text-xs text-slate-600 uppercase tracking-wide">
+                Género
+              </div>
             </div>
 
             <div className="text-center p-3 bg-white/70 rounded-lg">
-              <div className={`text-lg font-semibold ${config.textColor}`}>{threshold.name}</div>
-              <div className="text-xs text-slate-600 uppercase tracking-wide">Categoría</div>
+              <div className={`text-lg font-semibold ${config.textColor}`}>
+                {threshold.name}
+              </div>
+              <div className="text-xs text-slate-600 uppercase tracking-wide">
+                Categoría
+              </div>
             </div>
           </div>
 
           {/* Video Section */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className={`text-lg font-semibold ${config.textColor} flex items-center gap-2`}>
+              <h3
+                className={`text-lg font-semibold ${config.textColor} flex items-center gap-2`}
+              >
                 <Heart className="w-5 h-5" />
                 Video Informativo
               </h3>
@@ -177,8 +197,8 @@ export function WeightAlert({
               {!showVideo && (
                 <CollisionButton
                   onClick={() => {
-                    setShowVideo(true)
-                    playSound("success")
+                    setShowVideo(true);
+                    playSound("success");
                   }}
                   audioType="success"
                   intensity={1.2}
@@ -196,16 +216,17 @@ export function WeightAlert({
                 <YouTubePlayer
                   videoId={threshold.videoId}
                   autoPlay={autoPlayVideo}
+                  // Audio habilitado por defecto - ya no se necesita muted={false}
                   onPlay={() => {
-                    setIsVideoPlaying(true)
-                    onVideoPlay?.()
+                    setIsVideoPlaying(true);
+                    onVideoPlay?.();
                   }}
                   onPause={() => {
-                    setIsVideoPlaying(false)
+                    setIsVideoPlaying(false);
                   }}
                   onEnd={() => {
-                    setIsVideoPlaying(false)
-                    onVideoEnd?.()
+                    setIsVideoPlaying(false);
+                    onVideoEnd?.();
                   }}
                   className="w-full h-64 rounded-lg overflow-hidden"
                   showControls={true}
@@ -219,8 +240,8 @@ export function WeightAlert({
           <div className="flex gap-3 pt-4 border-t border-white/50">
             <CollisionButton
               onClick={() => {
-                onDismiss()
-                playSound("navigation")
+                onDismiss();
+                playSound("navigation");
               }}
               audioType="navigation"
               intensity={1.5}
@@ -231,8 +252,11 @@ export function WeightAlert({
 
             <CollisionButton
               onClick={() => {
-                window.open(`https://www.youtube.com/watch?v=${threshold.videoId}`, "_blank")
-                playSound("click")
+                window.open(
+                  `https://www.youtube.com/watch?v=${threshold.videoId}`,
+                  "_blank"
+                );
+                playSound("click");
               }}
               audioType="click"
               variant="outline"
@@ -258,5 +282,5 @@ export function WeightAlert({
         </div>
       </Card>
     </div>
-  )
+  );
 }
